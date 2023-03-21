@@ -1,0 +1,51 @@
+.guess-number-game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  .guess-number-game h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .guess-number-game form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .guess-number-game label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  .guess-number-game input {
+    width: 100%!;(MISSING)
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+  }
+  .guess-number-game button {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+  .guess-number-game button:hover {
+    background-color: #0069d9;
+  }
+  .guess-number-game .message {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
