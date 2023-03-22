@@ -4,10 +4,14 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import ReactJson from "react-json-view";
 import "./Calendar.less";
+let tempArr = [];
 let example = [
   {
     id: 1,
     name: "0",
+    func: () => {
+      console.log("我是对象里的方法");
+    },
     children: [
       {
         id: 2,
@@ -48,6 +52,9 @@ let example = [
           {
             id: 10,
             name: "2-2-2",
+            func: () => {
+              console.log("我是对象里的方法");
+            },
           },
         ],
       },
@@ -133,30 +140,121 @@ const Index = () => {
     return <div className="calendar-cells">{days}</div>;
   };
   const history = useHistory();
+  // 深度优先算法
   const deepFirstSearch = (nodes) => {
-    let reasult = [];
-    nodes.forEach((item) => {
-      if (!item) return;
-      const map = (arr) => {
-        if (!arr.name) return;
-        reasult.push(arr.name);
-        arr.children && arr.children.forEach((itm) => map(itm));
-      };
-      map(item);
-    });
-    if (!reasult.length) return;
-    return setNode(reasult);
-  };
-  const whildFirstSearch = (nodes) => {
     let arr = [];
-    let newNodes = JSON.parse(JSON.stringify(nodes));
+    let newNodes = deepCopy(nodes, true, "deep");
     while (newNodes.length) {
-      let nod = newNodes.shift();
+      let nod = newNodes.pop();
+      console.log(nod);
       if (!nod.name) return;
       arr.push(nod.name);
       nod.children && newNodes.push(...nod.children);
     }
     return setNode(arr);
+    // let reasult = [];
+    // let newNodes = deepCopy(nodes, true, "deep");
+    // newNodes.forEach((item) => {
+    //   if (!item) return;
+    //   const map = (arr) => {
+    //     if (!arr.name) return;
+    //     reasult.push(arr.name);
+    //     arr.children && arr.children.forEach((itm) => map(itm));
+    //   };
+    //   map(item);
+    // });
+    // if (!reasult.length) return;
+    // return setNode(reasult);
+  };
+  // 广度优先算法
+  function recursion(list) {
+    tempArr = [];
+    list.forEach((item) => {
+      if (item.children) {
+        tempArr = tempArr.concat(item.children);
+      }
+    });
+    console.log(tempArr);
+    tempArr.length > 0 && recursion(tempArr);
+  }
+  function wideTraversal(node) {
+    let newNodes = deepCopy(node, true, "deep");
+    let nodes = [];
+    newNodes.forEach((item) => {
+      const map = (arr) => {
+        if (arr.name) {
+          nodes.push(arr.name);
+        }
+        if (arr.length) {
+          arr.forEach((itm) => {
+            if (itm.name) {
+              nodes.push(itm.name);
+            } else if (itm.children) {
+              map(itm.children);
+            }
+          });
+        }
+        if (arr.children && arr.children.length) {
+          map(arr.children);
+        }
+      };
+      map(item);
+    });
+    console.log(nodes);
+    // return setNode(nodes);
+  }
+  const whildFirstSearch = (nodes) => {
+    let arr = [];
+    let newNodes = deepCopy(nodes, true, "deep");
+    while (newNodes.length) {
+      let nod = newNodes.shift();
+      console.log(nod);
+      if (!nod.name) return;
+      arr.push(nod.name);
+      nod.children && newNodes.push(...nod.children);
+    }
+    return setNode(arr);
+  };
+  function getEmpty(obj) {
+    if (Object.prototype.toString.call(obj) === "[object Object]") {
+      return {};
+    } else if (Object.prototype.toString.call(obj) === "[object Array]") {
+      return [];
+    }
+    return obj; //基本数据类型处理
+  }
+
+  // 深拷贝函数
+  const deepCopy = (obj, deep, type) => {
+    // obj 源对象
+    // deep 是否深拷贝
+    // type 哪种算法
+    let newObj = {};
+    if (deep) {
+      if (Array.isArray(obj)) {
+        newObj = [];
+      }
+      if (type === "deep") {
+        for (let key in obj) {
+          let value = obj[key];
+          newObj[key] =
+            deep && typeof value === "object" && value !== null
+              ? deepCopy(value, true, "deep")
+              : value;
+        }
+      } else if (type === "wild") {
+        let newNodes = deepCopy(obj, true, "deep");
+        while (newNodes.length) {
+          let nod = newNodes.shift();
+          if (!nod.name) return;
+          newObj.push(nod.name);
+          nod.children && newNodes.push(...nod.children);
+        }
+      }
+    } else {
+      newObj = Object.assign(obj, []);
+    }
+    return newObj;
   };
   return (
     <div className="container">
@@ -209,6 +307,39 @@ const Index = () => {
             danger
           >
             还原
+          </Button>
+          <Button
+            onClick={() => {
+              let newA = deepCopy(example, false);
+              if (newA[0]) {
+                newA[0].name = "2333";
+              }
+              console.log(example);
+            }}
+          >
+            浅拷贝
+          </Button>
+          <Button
+            onClick={() => {
+              let newA = deepCopy(example, true, "deep");
+              if (newA[0]) {
+                newA[0].name = "2333";
+              }
+              console.log(example);
+            }}
+          >
+            深拷贝深度优先
+          </Button>
+          <Button
+            onClick={() => {
+              // let newA = deepCopy(example, true, "wild");
+              // if (newA[0]) {
+              //   newA[0].name = "2333";
+              // }
+              console.log(deepCopy(example, true, "wild"));
+            }}
+          >
+            深拷贝广度优先
           </Button>
         </Space>
       </div>
