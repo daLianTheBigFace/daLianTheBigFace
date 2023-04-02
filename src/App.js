@@ -8,9 +8,9 @@ const App = () => {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/home" component={BaseConcept} exact />
+          <Route path="/" component={BaseConcept} exact />
           <Route path="/game" component={GuessNumberGame} />
-          <Route path="/" render={() => <h1>主页</h1>} />
+          {/* <Route path="/" render={() => <h1>主页</h1>} /> */}
           
         </Switch>
       </BrowserRouter>

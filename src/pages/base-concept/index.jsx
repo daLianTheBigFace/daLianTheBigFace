@@ -142,29 +142,29 @@ const Index = () => {
   const history = useHistory();
   // 深度优先算法
   const deepFirstSearch = (nodes) => {
-    let arr = [];
-    let newNodes = deepCopy(nodes, true, "deep");
-    while (newNodes.length) {
-      let nod = newNodes.pop();
-      console.log(nod);
-      if (!nod.name) return;
-      arr.push(nod.name);
-      nod.children && newNodes.push(...nod.children);
-    }
-    return setNode(arr);
-    // let reasult = [];
+    // let arr = [];
     // let newNodes = deepCopy(nodes, true, "deep");
-    // newNodes.forEach((item) => {
-    //   if (!item) return;
-    //   const map = (arr) => {
-    //     if (!arr.name) return;
-    //     reasult.push(arr.name);
-    //     arr.children && arr.children.forEach((itm) => map(itm));
-    //   };
-    //   map(item);
-    // });
-    // if (!reasult.length) return;
-    // return setNode(reasult);
+    // while (newNodes.length) {
+    //   let nod = newNodes.pop();
+    //   console.log(nod);
+    //   if (!nod.name) return;
+    //   arr.push(nod.name);
+    //   nod.children && newNodes.push(...nod.children);
+    // }
+    // return setNode(arr);
+    let reasult = [];
+    let newNodes = deepCopy(nodes, true, "deep");
+    newNodes.forEach((item) => {
+      if (!item) return;
+      const map = (arr) => {
+        if (!arr.name) return;
+        reasult.push(arr.name);
+        arr.children && arr.children.forEach((itm) => map(itm));
+      };
+      map(item);
+    });
+    if (!reasult.length) return;
+    return setNode(reasult);
   };
   // 广度优先算法
   function recursion(list) {
@@ -207,7 +207,7 @@ const Index = () => {
     let arr = [];
     let newNodes = deepCopy(nodes, true, "deep");
     while (newNodes.length) {
-      let nod = newNodes.shift();
+      let nod = newNodes.pop();
       console.log(nod);
       if (!nod.name) return;
       arr.push(nod.name);
@@ -223,6 +223,56 @@ const Index = () => {
     }
     return obj; //基本数据类型处理
   }
+
+  class Book {
+    constructor(name) {
+      this._name = name || 9;
+    }
+    test() {
+      console.log(2333);
+    }
+    get name(){
+      return this._name
+    }
+    set name(val){
+      this._name = val
+    }
+  }
+
+  class ItBook extends Book {
+    constructor(props) {
+      super(props);
+      this._title = props
+    }
+    itBook() {
+      console.log("itbook");
+    }
+    get name(){
+      return this._title
+    }
+    set name(val){
+      this._title = val
+    }
+  }
+
+  const exampleLei = new Book();
+  const exampleLei2 = new ItBook('我是名字');
+
+  const lei = () => {
+    // console.log(exampleLei.name)
+    // exampleLei.name = 'jiade'
+    // console.log(exampleLei.name)
+    // exampleLei._name = 'zhende'
+    // console.log(exampleLei.name)
+    let obj = {
+      a: [1,2,3],
+      get name () {
+        return 233
+      }
+    }
+    console.log(exampleLei)
+    console.log(obj)
+  };
 
   // 深拷贝函数
   const deepCopy = (obj, deep, type) => {
@@ -259,11 +309,11 @@ const Index = () => {
   return (
     <div className="container">
       <div className="box-1">
-        <div className="calendar">
+        {/* <div className="calendar">
           {renderCalendarHeader()}
           {renderCalendarDays()}
           {renderCalendarCells()}
-        </div>
+        </div> */}
         <Input
           style={{
             width: "150px",
@@ -340,6 +390,13 @@ const Index = () => {
             }}
           >
             深拷贝广度优先
+          </Button>
+          <Button
+            onClick={() => {
+              lei();
+            }}
+          >
+            类
           </Button>
         </Space>
       </div>
