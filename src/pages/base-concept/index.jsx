@@ -231,32 +231,32 @@ const Index = () => {
     test() {
       console.log(2333);
     }
-    get name(){
-      return this._name
+    get name() {
+      return this._name;
     }
-    set name(val){
-      this._name = val
+    set name(val) {
+      this._name = val;
     }
   }
 
   class ItBook extends Book {
     constructor(props) {
       super(props);
-      this._title = props
+      this._title = props;
     }
     itBook() {
       console.log("itbook");
     }
-    get name(){
-      return this._title
+    get name() {
+      return this._title;
     }
-    set name(val){
-      this._title = val
+    set name(val) {
+      this._title = val;
     }
   }
 
   const exampleLei = new Book();
-  const exampleLei2 = new ItBook('我是名字');
+  const exampleLei2 = new ItBook("我是名字");
 
   const lei = () => {
     // console.log(exampleLei.name)
@@ -265,13 +265,13 @@ const Index = () => {
     // exampleLei._name = 'zhende'
     // console.log(exampleLei.name)
     let obj = {
-      a: [1,2,3],
-      get name () {
-        return 233
-      }
-    }
-    console.log(exampleLei)
-    console.log(obj)
+      a: [1, 2, 3],
+      get name() {
+        return 233;
+      },
+    };
+    console.log(exampleLei);
+    console.log(obj);
   };
 
   // 深拷贝函数
