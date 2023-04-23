@@ -21,6 +21,13 @@ const HomePage = () => {
         >
           数据结构相关
         </Button>
+        <Button
+          onClick={() => {
+            history.push("/react-base");
+          }}
+        >
+          React相关
+        </Button>
       </Space>
     </div>
   );

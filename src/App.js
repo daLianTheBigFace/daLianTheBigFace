@@ -6,6 +6,7 @@ import Stack from "./pages/data-construct/stack";
 import HomePage from "./pages/home-page";
 import DataConstruct from "./pages/data-construct";
 import Queue from "./pages/data-construct/queue";
+import ReactBase from "./pages/react";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/game" component={GuessNumberGame} />
           <Route path="/stack" component={Stack} />
           <Route path="/queue" component={Queue} />
+          <Route path="/react-base" component={ReactBase} />
           {/* <Route path="/" render={() => <h1>主页</h1>} /> */}
         </Switch>
       </BrowserRouter>

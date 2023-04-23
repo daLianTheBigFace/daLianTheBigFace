@@ -11,7 +11,7 @@ export class Stack {
       this.list[this.count] = value;
       this.count++;
     }
-  } // 入栈
+  }
   pop() {
     if (this.isEmpty()) {
       return undefined;
@@ -20,7 +20,7 @@ export class Stack {
     const res = this.list[this.count];
     delete this.list[this.count];
     return res;
-  } // 出栈
+  }
   isEmpty() {
     return this.count === 0;
   }

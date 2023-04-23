@@ -142,29 +142,29 @@ const Index = () => {
   const history = useHistory();
   // 深度优先算法
   const deepFirstSearch = (nodes) => {
-    // let arr = [];
-    // let newNodes = deepCopy(nodes, true, "deep");
-    // while (newNodes.length) {
-    //   let nod = newNodes.pop();
-    //   console.log(nod);
-    //   if (!nod.name) return;
-    //   arr.push(nod.name);
-    //   nod.children && newNodes.push(...nod.children);
-    // }
-    // return setNode(arr);
-    let reasult = [];
+    let arr = [];
     let newNodes = deepCopy(nodes, true, "deep");
-    newNodes.forEach((item) => {
-      if (!item) return;
-      const map = (arr) => {
-        if (!arr.name) return;
-        reasult.push(arr.name);
-        arr.children && arr.children.forEach((itm) => map(itm));
-      };
-      map(item);
-    });
-    if (!reasult.length) return;
-    return setNode(reasult);
+    while (newNodes.length) {
+      let nod = newNodes.shift();
+      console.log(nod);
+      if (!nod.name) return;
+      arr.push(nod.name);
+      nod.children && newNodes.push(...nod.children);
+    }
+    return setNode(arr);
+    // let reasult = [];
+    // let newNodes = deepCopy(nodes, true, "deep");
+    // newNodes.forEach((item) => {
+    //   if (!item) return;
+    //   const map = (arr) => {
+    //     if (!arr.name) return;
+    //     reasult.push(arr.name);
+    //     arr.children && arr.children.forEach((itm) => map(itm));
+    //   };
+    //   map(item);
+    // });
+    // if (!reasult.length) return;
+    // return setNode(reasult);
   };
   // 广度优先算法
   function recursion(list) {

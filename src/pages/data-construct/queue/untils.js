@@ -11,7 +11,7 @@ export class Queue {
       this.items[this.count] = value;
       this.count += 1;
     }
-  } // 添加队尾
+  }
   dequeue() {
     if (this.isEmpty()) {
       return undefined;
@@ -20,19 +20,19 @@ export class Queue {
     delete this.items[this.firstCount];
     this.firstCount += 1;
     return res;
-  } // 删除并返回最先入队
+  }
   dPeek() {
     if (this.isEmpty()) {
       return undefined;
     }
     return this.items[this.firstCount];
-  } // 获取队首元素
+  }
   size() {
     return this.count - this.firstCount;
-  } // 获取队列长度
+  }
   isEmpty() {
     return this.count - this.firstCount === 0;
-  } // 判断是否为空
+  }
 }
 // 双向队
 export class Dqueue extends Queue {
